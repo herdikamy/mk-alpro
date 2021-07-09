@@ -45,7 +45,7 @@
                       <table id="form-table" class="table text-center table-condensed">
                           <tr>
                             <td>Seri Rak<td>
-                            <td><input type="text" name="seri_rak" class="form-control" value="<?=$nextnorak ?>" readonly><td>
+                            <td><input type="text" autofocus="on" autocomplete="off" name="seri_rak" class="form-control" value="<?=set_value('seri_rak')?>" ><?= form_error('seri_rak','<small class="text-danger pl-3">', '</small>'); ?><td>
                           </tr>
                           <tr>
                             <td>Nama Rak<td>

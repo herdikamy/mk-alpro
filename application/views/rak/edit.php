@@ -28,7 +28,7 @@
                     <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">        
                       <div class="my-4">
                           <div class="form-horizontal form-inline">
-                              <a href="<?=base_url('rak')?>" class="btn btn-default btn-xs">
+                              <a href="<?=base_url('buku')?>" class="btn btn-default btn-xs">
                                   <i class="fa fa-arrow-left"></i> Batal
                               </a>
                           </div>

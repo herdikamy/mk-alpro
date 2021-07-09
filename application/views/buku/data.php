@@ -20,7 +20,13 @@
                 <div class="box-header">
                   <h3 class="box-title">Data Buku</h3>
                   <div class="pull-right">
-                  	<a href="<?=base_url('buku/add') ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Tambah Data</a>
+                  	<?php
+                    if ($this->session->userdata('level')=='Administrator') { ?>
+                      <a href="<?=base_url('buku/add') ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Tambah Data</a>
+                      <a href="<?=base_url('buku/import') ?>" class="btn btn-success btn-xs"><i class="fa fa-upload"></i> Import Buku</a>
+                    <?php
+                    }
+                    ?>
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -32,34 +38,74 @@
                         <th>Letak</th>
                         <th>Seri Buku</th>
                         <th>Judul Buku</th>
+                        <th>Penulis</th>
+                        <th>Penerbit</th>
+                        <th>Tahun Terbit</th>
                         <th>Jumlah Buku</th>
-                        <th><i class="fa fa-gear"></i></th>
+                        <?php
+                        if ($this->session->userdata('level')=='Administrator') { ?>
+                          <th><i class="fa fa-gear"></i></th>
+                        <?php
+                      }else{ ?>
+                        
+                        <?php
+                      }
+                        ?>
                       </tr>
                     </thead>
+                    <tbody>
                     <?php
                     $no=1;
                     foreach ($list as $l) { ?>
-                    <tbody>
                       <tr>
                         <td width="10px"><?=$no++ ?></td>
                         <td><?=$l['nama_rak'] ?></td>
                         <td><?=$l['seri_buku'] ?></td>
                         <td><?=$l['judul_buku'] ?></td>
-                        <td><?=$l['jumlah'] ?></td>
-                        <td width="50px"><a class="btn btn-warning btn-xs" href="<?=base_url('buku/edit/').$l['id_buku'] ?>"><i class="fa fa-pencil"></i></a> <a onclick="return confirm('ingin menghapus data?')" class="btn btn-danger btn-xs" href="<?=base_url('buku/del/').$l['id_buku'] ?>"><i class="fa fa-trash"></i></a></td>
+                        <td><?=$l['penulis'] ?></td>
+                        <td><?=$l['penerbit'] ?></td>
+                        <td><?=$l['tahun_terbit'] ?></td>
+                        <td><?php 
+                        if ($l['jumlah'] == '0') {
+                          echo "Habis Dipinjam";
+                        }else{
+                          echo $l['jumlah'];
+                        }
+                        ?>
+                        </td>
+                        <?php
+                        if ($this->session->userdata('level')=='Administrator') { ?>
+                          <td width="50px"><a class="btn btn-warning btn-xs" href="<?=base_url('buku/edit/').$l['id_buku'] ?>"><i class="fa fa-pencil"></i></a> <a onclick="return confirm('ingin menghapus data?')" class="btn btn-danger btn-xs" href="<?=base_url('buku/del/').$l['id_buku'] ?>"><i class="fa fa-trash"></i></a></td>
+                        <?php
+                      }else{ ?>
+                        
+                        <?php
+                      }
+                        ?>
                       </tr>
-                    </tbody>
                     <?php 
                     }
                     ?>
+                    </tbody>
                     <tfoot>
                       <tr>
                         <th>No</th>
                         <th>Letak</th>
                         <th>Seri Buku</th>
                         <th>Judul Buku</th>
+                        <th>Penulis</th>
+                        <th>Penerbit</th>
+                        <th>Tahun Terbit</th>
                         <th>Jumlah Buku</th>
-                        <th><i class="fa fa-gear"></i></th>
+                        <?php
+                        if ($this->session->userdata('level')=='Administrator') { ?>
+                          <th><i class="fa fa-gear"></i></th>
+                        <?php
+                      }else{ ?>
+                        
+                        <?php
+                      }
+                        ?>
                       </tr>
                     </tfoot>
                   </table>

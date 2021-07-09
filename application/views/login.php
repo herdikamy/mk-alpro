@@ -26,7 +26,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition login-page">
+  <body class="hold-transition login-page" style="background-image: url('<?=base_url('assets/dist/img/bg-3.jpg') ?>');
+    background-repeat: no-repeat;
+    background-size: cover;">
     <div class="login-box">
       <div class="login-logo">
         <a href="<?=base_url('assets') ?>/index2.html"><b>Perpustakaan</b><br>SMAN 1 Gadingrejo</a>
@@ -35,7 +37,7 @@
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="<?=base_url('auth') ?>" method="post">
           <div class="form-group has-feedback">
-            <input type="text" autofocus="on" name="email" autocomplete="off" class="form-control" placeholder="Email" value="<?= set_value('email') ?>">
+            <input type="text" autofocus="on" name="email" autocomplete="off" class="form-control" placeholder="Email/Username" value="<?= set_value('email') ?>">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             <?= form_error('email','<small class="text-danger pl-3">', '</small>'); ?>
           </div>
@@ -53,7 +55,7 @@
           </div>
         </form>
 
-        <a href="#">I forgot my password</a><br>
+        <!-- <a href="#">I forgot my password</a><br> -->
         <a href="<?=base_url('auth/register') ?>" class="text-center">Register a new membership</a>
 
       </div><!-- /.login-box-body -->

@@ -39,6 +39,23 @@
             <?= form_error('fullname','<small class="text-danger pl-3">', '</small>'); ?>
           </div>
           <div class="form-group has-feedback">
+            <select name="jk" class="form-control">
+              <option value="">-- Jenis Kelamin --</option>
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+            <?= form_error('jk','<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group has-feedback">
+            <select name="kelas" class="form-control">
+              <option value="">-- Kelas --</option>
+              <?php foreach ($kelas as $k) { ?>
+                <option value="<?=$k['id_kelas'] ?>"><?=$k['nama_kelas'] ?></option>
+              <?php } ?>
+            </select>
+            <?= form_error('kelas','<small class="text-danger pl-3">', '</small>'); ?>
+          </div>
+          <div class="form-group has-feedback">
             <input type="text" autocomplete="off" class="form-control" name="email" placeholder="Email" value="<?= set_value('email') ?>">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             <?= form_error('email','<small class="text-danger pl-3">', '</small>'); ?>

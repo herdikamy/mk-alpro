@@ -9,7 +9,7 @@ class M_profile extends CI_Model {
 	}
 	public function show_s($val)
 	{
-		// return $this->db->get_where('tb_login', ['id' => $val])->row_array();
+		return $this->db->get_where('tb_login', ['id' => $val])->row_array();
 	}
 	public function update($data)
 	{

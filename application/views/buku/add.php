@@ -36,7 +36,7 @@
                     <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">        
                       <div class="my-4">
                           <div class="form-horizontal form-inline">
-                              <a href="<?=base_url('rak')?>" class="btn btn-default btn-xs">
+                              <a href="<?=base_url('buku')?>" class="btn btn-default btn-xs">
                                   <i class="fa fa-arrow-left"></i> Batal
                               </a>
                           </div>
@@ -45,11 +45,11 @@
                       <table id="form-table" class="table text-center table-condensed">
                           <tr>
                             <td>Seri Buku<td>
-                            <td><input type="text" name="seri_buku" class="form-control" value="<?=$nextnorak ?>" readonly><td>
+                            <td><input type="text" name="seri_buku" class="form-control" value="<?=set_value('seri_buku') ?>" autofocus="on" autocomplete="off"><?= form_error('seri_buku','<small class="text-danger pl-3">', '</small>'); ?><td>
                           </tr>
                           <tr>
                             <td>Rak Penyimpanan<td>
-                            <td><select name="rak" class="form-control" autofocus>
+                            <td><select name="rak" class="form-control">
                             <option value="">-- Pilih Rak</option>
                             <?php
                             foreach ($list_rak as $k) { ?>
@@ -63,8 +63,19 @@
                           </tr>
                           <tr>
                             <td>Judul Buku<td>
-                            <td><input autocomplete="off" autofocus="on" type="text" name="judul_buku" class="form-control" value="<?=set_value('judul_buku') ?>"><?= form_error('judul_buku','<small class="text-danger pl-3">', '</small>'); ?><td>
-                            
+                            <td><input autocomplete="off" type="text" name="judul_buku" class="form-control" value="<?=set_value('judul_buku') ?>"><?= form_error('judul_buku','<small class="text-danger pl-3">', '</small>'); ?><td>
+                          </tr>
+                          <tr>
+                            <td>Penulis<td>
+                            <td><input autocomplete="off" type="text" name="penulis" class="form-control" value="<?=set_value('penulis') ?>"><?= form_error('penulis','<small class="text-danger pl-3">', '</small>'); ?><td>
+                          </tr>
+                          <tr>
+                            <td>Penerbit<td>
+                            <td><input autocomplete="off" type="text" name="penerbit" class="form-control" value="<?=set_value('penerbit') ?>"><?= form_error('penerbit','<small class="text-danger pl-3">', '</small>'); ?><td>
+                          </tr>
+                          <tr>
+                            <td>Tahun Terbit<td>
+                            <td><input autocomplete="off" type="text" name="tahun_terbit" class="form-control" value="<?=set_value('penerbit') ?>"><?= form_error('penerbit','<small class="text-danger pl-3">', '</small>'); ?><td>
                           </tr>
                           <tr>
                             <td>Jumlah<td>

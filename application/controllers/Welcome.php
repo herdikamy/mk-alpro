@@ -32,13 +32,62 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$data['jumlahrak'] = $this->m_welcome->rak();
-		$data['jumlahbuku'] = $this->m_welcome->buku();
-		$data['jumlahanggota'] = $this->m_welcome->anggota();
-		$data['title'] = 'Dashboard';
-		$this->load->view('load_view/header', $data);
-		$this->load->view('load_view/aside');
-		$this->load->view('dashboard');
-		$this->load->view('load_view/footer');
+		if ($this->session->userdata('level')=='Administrator') {
+			$data['jumlahrak'] = $this->m_welcome->rak();
+			$data['jumlahbuku'] = $this->m_welcome->buku();
+			$data['jumlahanggota'] = $this->m_welcome->anggota();
+			$data['countpinjam'] = $this->m_welcome->countpinjam();
+			$data['countkembali'] = $this->m_welcome->countkembali();
+			$data['buku'] = $this->m_welcome->countbuku();
+			$data['pria'] = $this->m_welcome->countpria();
+			$data['wanita'] = $this->m_welcome->countwanita();
+			$data['chart'] = $this->m_welcome->chartkunjungan();
+			$data['chart_tr'] = $this->m_welcome->chart_tr();
+			$data['chart_buku'] = $this->m_welcome->chart_buku();
+			$data['mustbacknow'] = $this->m_welcome->countmustbacknow();
+			$data['resultmustbacknow'] = $this->m_welcome->resultmustbacknow();
+			$data['countusernonactive'] = $this->m_welcome->countusernonactive();
+			$data['resultusernonactive'] = $this->m_welcome->resultusernonactive();
+			$data['borrowtoday'] = $this->m_welcome->borrowtoday();
+			$data['resultborrowtoday'] = $this->m_welcome->resultborrowtoday();
+			$data['title'] = 'Dashboard';
+			$notif = 0;
+			if($data['mustbacknow']>0){
+				$notif = $notif + 1;
+			}
+			if($data['countusernonactive']>0){
+				$notif = $notif + 1;
+			}
+			if($data['borrowtoday']>0){
+				$notif = $notif + 1;
+			}
+			$data['notif'] = $notif;
+			$this->load->view('load_view/header', $data);
+			$this->load->view('load_view/aside');
+			$this->load->view('dashboard');
+			$this->load->view('load_view/footer');
+		}else {
+			$data['jumlahbuku'] = $this->m_welcome->buku();
+			$data['bukudipinjam'] = $this->m_welcome->bukudipinjam();
+			$data['bukudikembalikan'] = $this->m_welcome->bukudikembalikan();
+			$data['mustbacknow2'] = $this->m_welcome->countmustbacknow2();
+			$data['resultmustbacknow2'] = $this->m_welcome->resultmustbacknow();
+			$notif = 0;
+			if($data['mustbacknow2']>0){
+				$notif = $notif + 1;
+			}
+			// if($data['countusernonactive2']>0){
+			// 	$notif = $notif + 1;
+			// }
+			// if($data['borrowtoday2']>0){
+			// 	$notif = $notif + 1;
+			// }
+			$data['notif'] = $notif;
+			$data['title'] = 'Dashboard';
+			$this->load->view('load_view/header', $data);
+			$this->load->view('load_view/aside');
+			$this->load->view('siswa/dashboard');
+			$this->load->view('load_view/footer');
+		}
 	}
 }

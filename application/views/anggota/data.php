@@ -21,6 +21,7 @@
                   <h3 class="box-title">Data Anggota</h3>
                   <div class="pull-right">
                   	<a href="<?=base_url('anggota/add') ?>" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Tambah Data</a>
+                    <a href="<?=base_url('anggota/import') ?>" class="btn btn-success btn-xs"><i class="fa fa-upload"></i> Import Anggota</a>
                   </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -30,39 +31,51 @@
                       <tr>
                         <th>No</th>
                         <th>NIS/NISN</th>
-                        <th>Nama Lengkap</th>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Kelas</th>
                         <th>Email</th>
                         <th><i class="fa fa-gear"></i></th>
                       </tr>
                     </thead>
+                    <tbody>
                     <?php
                     $no=1;
                     foreach ($list as $l) { ?>
-                    <tbody>
                       <tr>
                         <td width="10px"><?=$no++ ?></td>
                         <td><?=$l['nis'] ?></td>
                         <td><?=$l['nama_lengkap'] ?></td>
+                        <td><?php if ($l['jk'] == 'L') {
+                          echo "Laki-laki";
+                        }elseif ($l['jk'] == 'P') {
+                          echo "Perempuan";
+                        }elseif ($l['jk']) {
+                          echo $l['jk'];
+                        } ?></td>
+                        <td><?=$l['nama_kelas'] ?></td>
                         <td><?=$l['email'] ?></td>
                         <?php
                         if ($l['activated'] == '0') { ?>
-                          <td width="50px"><a onclick="return confirm('Aktivasi User?')" class="btn btn-info btn-xs" href="<?=base_url('anggota/act/').$l['id_siswa'] ?>"><i class="fa fa-unlock"></i></a></td>
+                          <td width="60px"><a onclick="return confirm('Aktivasi User?')" class="btn btn-info btn-xs" href="<?=base_url('anggota/act/').$l['id_siswa'] ?>"><i class="fa fa-unlock"></i></a></td>
                         <?php
                         }else { ?>
-                          <td width="50px"><a class="btn btn-warning btn-xs" href="<?=base_url('anggota/edit/').$l['id_siswa'] ?>"><i class="fa fa-pencil"></i></a> <a onclick="return confirm('ingin menghapus data?')" class="btn btn-danger btn-xs" href="<?=base_url('anggota/del/').$l['id_siswa'] ?>"><i class="fa fa-trash"></i></a></td>
+                          <td width="80px"><a class="btn btn-warning btn-xs" href="<?=base_url('anggota/edit/').$l['id_siswa'] ?>"><i class="fa fa-pencil"></i></a> <a onclick="return confirm('ingin menghapus data?')" class="btn btn-danger btn-xs" href="<?=base_url('anggota/del/').$l['id_siswa'] ?>"><i class="fa fa-trash"></i></a> <a onclick="return confirm('Print Kartu?')" class="btn btn-primary btn-xs" href="<?=base_url('anggota/print_card/').$l['id_siswa'] ?>" target="_blank"><i class="fa fa-print"></i></a></td>
                         <?php
                         }
                         ?>
                       </tr>
-                    </tbody>
                     <?php 
                     }
                     ?>
+                    </tbody>
                     <tfoot>
                       <tr>
                         <th>No</th>
                         <th>NIS/NISN</th>
                         <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Kelas</th>
                         <th>email</th>
                         <th><i class="fa fa-gear"></i></th>
                       </tr>

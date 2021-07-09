@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Perpustakaan | <?=$title ?></title>
+
+    <style type="text/css" media="screen">
+      .rotateimg90 {
+        -webkit-transform:rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+      }
+    </style>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -25,6 +35,8 @@
     <link rel="stylesheet" href="<?=base_url('assets/') ?>plugins/morris/morris.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="<?=base_url('assets/') ?>plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="<?=base_url('assets/') ?>plugins/select2/select2.min.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="<?=base_url('assets/') ?>plugins/datepicker/datepicker3.css">
     <!-- Daterange picker -->
@@ -41,6 +53,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  <?php if ($this->uri->segment(2)=='print_card' OR $this->uri->segment(2)=='cetak_peminjaman') { ?>
+    <body onclick="OpenInNewTab();">
+  <?php }else{ ?>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -60,210 +75,142 @@
           </a>
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <!-- Messages: style can be found in dropdown.less-->
-              <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="label label-success">4</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="header">You have 4 messages</li>
-                  <li>
-                    <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                      <li><!-- start message -->
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="<?=base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                          </div>
-                          <h4>
-                            Support Team
-                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li><!-- end message -->
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="<?=base_url('assets/') ?>dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                          </div>
-                          <h4>
-                            AdminLTE Design Team
-                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="<?=base_url('assets/') ?>dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                          </div>
-                          <h4>
-                            Developers
-                            <small><i class="fa fa-clock-o"></i> Today</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="<?=base_url('assets/') ?>dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                          </div>
-                          <h4>
-                            Sales Department
-                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <div class="pull-left">
-                            <img src="<?=base_url('assets/') ?>dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                          </div>
-                          <h4>
-                            Reviewers
-                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                          </h4>
-                          <p>Why not buy a new awesome theme?</p>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="footer"><a href="#">See All Messages</a></li>
-                </ul>
-              </li>
               <!-- Notifications: style can be found in dropdown.less -->
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
-                  <span class="label label-warning">10</span>
+                  <span class="label label-warning"><?php 
+                  if ($this->session->userdata('level')=='Administrator') {
+                      if ($notif == 0) {
+                        echo "";
+                      }else{
+                        echo $notif;
+                      }
+                      ?></span>
+                  <?php
+                  }else{
+                    if ($mustbacknow2 > 0) {
+                      echo $notif;
+                    } ?></span>
+                  <?php }
+                  ?>  
                 </a>
-                <ul class="dropdown-menu">
-                  <li class="header">You have 10 notifications</li>
-                  <li>
-                    <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-users text-red"></i> 5 new members joined
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-user text-red"></i> You changed your username
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="footer"><a href="#">View all</a></li>
-                </ul>
-              </li>
-              <!-- Tasks: style can be found in dropdown.less -->
-              <li class="dropdown tasks-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <i class="fa fa-flag-o"></i>
-                  <span class="label label-danger">9</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="header">You have 9 tasks</li>
-                  <li>
-                    <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                      <li><!-- Task item -->
-                        <a href="#">
-                          <h3>
-                            Design some buttons
-                            <small class="pull-right">20%</small>
-                          </h3>
-                          <div class="progress xs">
-                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">20% Complete</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li><!-- end task item -->
-                      <li><!-- Task item -->
-                        <a href="#">
-                          <h3>
-                            Create a nice theme
-                            <small class="pull-right">40%</small>
-                          </h3>
-                          <div class="progress xs">
-                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">40% Complete</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li><!-- end task item -->
-                      <li><!-- Task item -->
-                        <a href="#">
-                          <h3>
-                            Some task I need to do
-                            <small class="pull-right">60%</small>
-                          </h3>
-                          <div class="progress xs">
-                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">60% Complete</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li><!-- end task item -->
-                      <li><!-- Task item -->
-                        <a href="#">
-                          <h3>
-                            Make beautiful transitions
-                            <small class="pull-right">80%</small>
-                          </h3>
-                          <div class="progress xs">
-                            <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">80% Complete</span>
-                            </div>
-                          </div>
-                        </a>
-                      </li><!-- end task item -->
-                    </ul>
-                  </li>
-                  <li class="footer">
-                    <a href="#">View all tasks</a>
-                  </li>
-                </ul>
+                <?php
+                if ($this->session->userdata('level')=='Administrator') {
+                  if ($mustbacknow > 0 || $countusernonactive > 0 || $borrowtoday > 0) { ?>
+                  <ul class="dropdown-menu">
+                    <li class="header">You have <?=$notif ?> notifications</li>
+                    <li>
+                      <!-- inner menu: contains the actual data -->
+                      <ul class="menu">
+                        <li>
+                          <a href="<?=base_url('transaksi/pengembalian') ?>">
+                            <i class="fa fa-book text-red"></i> <?php if ($mustbacknow != 0) { ?>
+                              <?=$mustbacknow ?> buku harus kembali hari ini
+                            <?php }else{
+                              echo "-";
+                            } ?>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="<?=base_url('anggota') ?>">
+                            <i class="fa fa-users text-aqua"></i> <?=$countusernonactive ?> anggota baru menunggu di aktivasi
+                          </a>
+                        </li>
+                        <li>
+                          <a href="<?=base_url('transaksi/peminjaman') ?>">
+                            <i class="fa fa-book text-green"></i> <?php if ($borrowtoday != 0) { ?>
+                              <?=$borrowtoday ?> Buku Dipinjam hari ini
+                            <?php }else{
+                              echo "-";
+                            } ?>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <!-- <li class="footer"><a href="#">View all</a></li> -->
+                  </ul>
+                <?php }else{ ?>
+                  <ul class="dropdown-menu">
+                    <li class="header"> <?php if ($mustbacknow > 0) {
+                      echo "You have 1 notifications";
+                    }else{
+                      echo "Nothing notifications";
+                    } ?></li>
+                  </ul>
+                <?php }
+              }else{
+                if ($mustbacknow2 > 0) { ?>
+                  <ul class="dropdown-menu">
+                    <li class="header">You have <?php if ($mustbacknow2 > 0) {
+                      echo "1";
+                    } ?> notifications</li>
+                    <li>
+                      <!-- inner menu: contains the actual data -->
+                      <ul class="menu">
+                        <li>
+                          <a href="<?=base_url('transaksi/pengembalian') ?>">
+                            <i class="fa fa-book text-green"></i> <?=$mustbacknow2 ?> buku harus kembali hari ini
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <!-- <li class="footer"><a href="#">View all</a></li> -->
+                  </ul>
+                <?php }else{ ?>
+                  <ul class="dropdown-menu">
+                    <li class="header"> <?php if ($mustbacknow2 > 0) {
+                      echo "You have 1 notifications";
+                    }else{
+                      echo "Nothing notifications";
+                    } ?></li>
+                  </ul>
+              <?php 
+            }
+          } ?>
               </li>
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<?=base_url('assets/') ?>dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                  <img src="<?php if ($this->session->userdata('level')=='Administrator') {
+                    echo base_url('assets/')."dist/img/user2-160x160.jpg";
+                  }else{
+                    $session = $this->session->userdata('id_level');
+                    $data = $this->db->get('anggota', ['id_siswa' => $session])->row_array();
+                    if ($data['jk'] == 'Laki-laki' || $data['jk'] == 'L' || $data['jk'] == 'l') {
+                      echo base_url('assets/')."dist/img/avatar5.png";
+                    }elseif($data['jk'] == 'Perempuan' || $data['jk'] == 'P' || $data['jk'] == 'p'){
+                      echo base_url('assets/')."dist/img/avatar2.png";
+                    }
+                  }
+                  ?>" class="user-image" alt="User Image">
                   <span class="hidden-xs"><?=$this->session->userdata('level'); ?></span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="<?=base_url('assets/') ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    <p>
-                      <?=$this->session->userdata('level'); ?> Perpustakaan
+                    <img src="<?php if ($this->session->userdata('level')=='Administrator') {
+                    echo base_url('assets/')."dist/img/user2-160x160.jpg";
+                  }else{
+                    $session = $this->session->userdata('id_level');
+                    $data = $this->db->get('anggota', ['id_siswa' => $session])->row_array();
+                    if ($data['jk'] == 'Laki-laki' || $data['jk'] == 'L' || $data['jk'] == 'l') {
+                      echo base_url('assets/')."dist/img/avatar5.png";
+                    }elseif($data['jk'] == 'Perempuan' || $data['jk'] == 'P' || $data['jk'] == 'p'){
+                      echo base_url('assets/')."dist/img/avatar2.png";
+                    }
+                  }
+                  ?>" class="img-circle" alt="User Image">
+                    <p><?php if ($this->session->userdata('level')=='Administrator') {
+                      echo $this->session->userdata('level')." Perpustakaan";
+                    }else{
+                      echo $this->session->userdata('nama_lengkap');
+                    } ?>
                       <small>Since <?=shortdate_indo($this->session->userdata('sejak')); ?></small>
                     </p>
                   </li>
                   <!-- Menu Body -->
-                  <li class="user-body">
+                  <!-- <li class="user-body">
                     <div class="col-xs-4 text-center">
                       <a href="#">Followers</a>
                     </div>
@@ -273,7 +220,7 @@
                     <div class="col-xs-4 text-center">
                       <a href="#">Friends</a>
                     </div>
-                  </li>
+                  </li> -->
                   <!-- Menu Footer-->
                   <li class="user-footer">
                     <div class="pull-left">
@@ -286,10 +233,11 @@
                 </ul>
               </li>
               <!-- Control Sidebar Toggle Button -->
-              <li>
+              <!-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </nav>
       </header>
+  <?php } ?>
