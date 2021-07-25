@@ -132,7 +132,7 @@ class Anggota extends CI_Controller {
 	{
 		// $data = $this->db->get_where('anggota', ['id_siswa' => $id])->row_array();
 		$this->zend->load('Zend/Barcode');
-		Zend_Barcode::render('code128', 'image', array('text' => $value, 'barHeight' => 100, 'barThinWidth' => 2, 'withBorder' => TRUE));
+		Zend_Barcode::render('code128', 'image', array('text' => $value, 'barHeight' => 100, 'barThinWidth' => 2, 'withBorder' => TRUE, 'drawText' => FALSE));
 	}
 
 	public function print_card($id)

@@ -18,7 +18,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email/Username', 'trim|required', ['required' => 'Kolom Masih Kosong!']);
 		$this->form_validation->set_rules('password', 'Password', 'trim|required', ['required' => 'Password Masih Kosong!']);
 		if ($this->form_validation->run() == false) {
-		$this->load->view('login');
+		$this->load->view('login-v2');
 		} else {
 			$this->_login();
 		}
@@ -68,7 +68,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('agree', 'Agree', 'trim|required', ['required' => 'Cheklis Agree!']);
 		if ($this->form_validation->run() == false) {
 			$data['kelas'] = $this->db->get('kelas')->result_array();
-			$this->load->view('register',$data);
+			$this->load->view('register-v2',$data);
 		} else {
 			$this->_regis();
 		}
